@@ -1,4 +1,5 @@
 import { ACTION_TYPES } from "../actionTypes";
+import { GIF_COUNT_PER_PAGE } from "../../constants";
 
 const requestGif = () =>  ({
     type: ACTION_TYPES.REQUEST_FETCH_GIFS,
@@ -17,7 +18,7 @@ const requestGifFailure = (error) => ({
 const fetchGifs = (searchObj) => async dispatch => {
     try {
         dispatch(requestGif());
-        const res = await axios.get(`/gifs/search?api_key=${process.env.REACT_APP_GIPHY_KEY}&q=${searchObj.q}`); // eslint-disable-line
+        const res = await axios.get(`/gifs/search?api_key=${process.env.REACT_APP_GIPHY_KEY}&q=${searchObj.q}&limit=${GIF_COUNT_PER_PAGE}`); // eslint-disable-line
         if (res.data) {
             dispatch(requestGifSuccess(res.data.data));
             return;

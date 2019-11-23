@@ -1,0 +1,1 @@
+export const GIF_COUNT_PER_PAGE = 24;
