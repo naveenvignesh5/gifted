@@ -6,38 +6,42 @@ import { fetchGifs } from "../../redux/actions/action-gif";
 
 // components
 import SearchBar from "../../components/SearchBar";
-import GifWrapper from "../../components/GifView/GifWrapper";
+import GifList from "../../components/GifList";
+import PaginationTab from "../../components/PaginationTab";
 
 class Home extends Component {
-  state = {};
+  state = {
+    currentPage: 1
+  };
 
   componentDidMount() {
     this.props.fetchGifs({ q: "cats" });
   }
 
+  updatePage = currentPage => this.setState({ currentPage });
+
   renderGifs = () => {
     const { gifs, fetchingGifs, fetchingGifsError } = this.props;
 
-    if (fetchingGifs) return <p>Fetching Gifs</p>;
-
-    if (fetchingGifsError) return <p>Something went wrong !!!</p>;
-
     if (gifs && gifs.length > 0) {
-      return (
-        <GifWrapper gifs={gifs} />
-      );
+      return <GifList gifs={gifs} />;
     }
 
-    console.log(gifs);
-
-    return null;
+    return (
+      <div>
+        {fetchingGifs && <p>Fetching Gifs...</p>}
+        {fetchingGifsError && <p>Something went wrong.</p>}
+      </div>
+    );
   };
 
   render() {
+    const { currentPage } = this.state;
     return (
       <div className="container">
         <SearchBar placeholder="Search a gif..." />
         {this.renderGifs()}
+        <PaginationTab onPagePress={this.updatePage} currentPage={currentPage} />
       </div>
     );
   }
