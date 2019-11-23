@@ -3,7 +3,25 @@ import React, { memo, useState } from "react";
 import "./PaginationTab.sass";
 
 const PaginationTab = memo(
-  ({ totalPages, currentPage, pageLimit = 10, onPagePress }) => {
+  ({ totalPages = 20, currentPage, pageLimit = 10, onPagePress }) => {
+    const [startPage, updateStartPage] = useState(1);
+
+    const onPrevPress = () => {
+        if (startPage === 1) return;
+
+        const newStartPage = startPage - pageLimit;
+
+        if (newStartPage > 0) updateStartPage(newStartPage);
+    }
+
+    const onNextPress = () => {
+        if (startPage === totalPages) return;
+
+        const newStartPage = startPage + pageLimit;
+
+        if (newStartPage <= totalPages) updateStartPage(newStartPage);
+    }
+
     const renderPageButtons = () => {
       let buttons = [];
 
@@ -14,7 +32,9 @@ const PaginationTab = memo(
 
       if (limit > totalPages) limit = totalPages;
 
-      for (let i = 1; i <= limit; i += 1) {
+      limit = startPage + limit - 1;
+
+      for (let i = startPage; i <= limit; i += 1) {
         buttons.push(
           <button
             onClick={() => onPagePress(i)}
@@ -31,9 +51,9 @@ const PaginationTab = memo(
     return (
       <div className="paginatin-tab">
         <div className="page-buttons-wrapper">
-          <button className="page-button">Prev</button>
+          <button className="page-button" onClick={onPrevPress}>Prev</button>
           {renderPageButtons()}
-          <button className="page-button">Next</button>
+          <button className="page-button" onClick={onNextPress}>Next</button>
         </div>
       </div>
     );
