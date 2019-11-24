@@ -30,6 +30,7 @@ const PaginationTab = memo(
       for (let i = startPage; i <= limit; i += 1) {
         buttons.push(
           <button
+            key={`page_${i}`}
             onClick={() => onPagePress(i)}
             className={`page-button ${currentPage === i ? "is-active" : ""}`}
           >

@@ -33,7 +33,7 @@ export default ComposedComponent => {
         return;
       }
 
-      return this.setState({ isDisconnected: true });
+      this.setState({ isDisconnected: true });
     };
 
     render() {
@@ -43,10 +43,11 @@ export default ComposedComponent => {
         <>
           {isDisconnected && (
             <div className="internet-error">
-              <p>Interent connection lost</p>
+              <p className="title">No network</p>
+              <p className="subtitle">Please connect to internet and refresh.</p>
             </div>
           )}
-          <ComposedComponent {...this.props} />
+          {!isDisconnected && <ComposedComponent {...this.props} />}
         </>
       );
     }

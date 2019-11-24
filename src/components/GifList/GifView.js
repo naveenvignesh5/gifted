@@ -9,7 +9,7 @@ const GifView = memo(({ src }) => {
     <div className="gif-image-wrapper">
       <div className="gif-loading" style={{ display: imageLoaded ? 'none' : 'flex' }}>Loading GIF...</div>
       {imageLoaded && <div className="gif-image-overlay">
-        <button className="download-button">Download</button>
+        <a className="download-button" href={src}>View</a>
       </div>}
       <img
         className="gif-image"

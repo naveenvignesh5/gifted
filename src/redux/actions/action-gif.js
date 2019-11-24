@@ -20,6 +20,7 @@ const fetchGifs = (searchObj) => async dispatch => {
         dispatch(requestGif());
         const res = await axios.get(`/gifs/search?api_key=${process.env.REACT_APP_GIPHY_KEY}&q=${searchObj.q}&limit=${GIF_COUNT_PER_PAGE}`); // eslint-disable-line
         if (res.data) {
+            console.log(res.data.data[0]);
             dispatch(requestGifSuccess(res.data.data));
             return;
         }

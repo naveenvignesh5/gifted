@@ -39,14 +39,22 @@ class Home extends Component {
 
     if (gifs && gifs.length > 0) return <GifList gifs={gifs} />;
 
+    if (fetchingGifs || fetchingGifsError) {
+      return (
+        <div className="gif-status-section">
+          {fetchingGifs && <p className="status-text">Loading...</p>}
+          {fetchingGifsError && (
+            <p className="status-text">Unable to load gifs.</p>
+          )}
+        </div>
+      );
+    }
+
     return (
       <div className="gif-status-section">
-        {fetchingGifs && <p className="status-text">Loading...</p>}
-        {fetchingGifsError && (
-          <p className="status-text">Unable to load gifs.</p>
-        )}
+        <p className="status-text">No Gifs Found.</p>;
       </div>
-    );
+    )
   };
 
   render() {
