@@ -6,7 +6,7 @@ const initialState = {
   isError: false,
   gifs: [],
   totalPages: 0,
-  error: {}
+  error: null
 };
 
 export default (state = initialState, action) => {

@@ -15,7 +15,6 @@ const GifView = memo(({ src }) => {
         className="gif-image"
         style={{ display: imageLoaded ? 'block' : 'none' }}
         onLoad={() => {
-          console.log('image loaded')
           updateImageLoaded(true);
         }}
         src={src}
