@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GifView snapshot renders 1`] = `
+<div
+  className="search-bar-wrapper"
+>
+  <input
+    className="search-bar-input"
+  />
+  <button
+    className="search-button"
+  >
+    Search
+  </button>
+</div>
+`;

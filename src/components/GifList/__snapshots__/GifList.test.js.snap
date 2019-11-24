@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GifView snapshot renders 1`] = `
+<div
+  className="gif-image-wrapper"
+>
+  <div
+    className="gif-loading"
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  >
+    Loading GIF...
+  </div>
+  <img
+    alt="animated"
+    className="gif-image"
+    onLoad={[Function]}
+    src="https://media.giphy.com/media/J4CLEVEHB7L1n8uBbW/source.gif"
+    style={
+      Object {
+        "display": "none",
+      }
+    }
+  />
+</div>
+`;

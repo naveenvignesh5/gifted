@@ -1,12 +1,12 @@
 import React from "react";
 import renderer from "react-test-renderer";
 
-import SearchBar from "./SearchBar";
+import GifView from "./GifView";
 
-describe("SearchBar", () => {
+describe("GifView", () => {
   it("snapshot renders", () => {
     const component = renderer.create(
-      <SearchBar />
+      <GifView src="https://media.giphy.com/media/J4CLEVEHB7L1n8uBbW/source.gif" />
     );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
