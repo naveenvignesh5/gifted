@@ -1,9 +1,17 @@
 import React, { memo, useState } from "react";
 
 import "./PaginationTab.sass";
+import { DEFAULT_PAGE_COUNT_PER_GROUP } from "../../constants";
 
 const PaginationTab = memo(
-  ({ totalPages = 20, currentPage, pageLimit = 6, onPagePress }) => {
+  ({
+    totalPages,
+    currentPage,
+    pageLimit = DEFAULT_PAGE_COUNT_PER_GROUP,
+    onPagePress,
+    onPrevButtonPress,
+    onNextButtonPress
+  }) => {
     const [startPage, updateStartPage] = useState(1);
 
     const onPrevPress = () => {
@@ -11,7 +19,10 @@ const PaginationTab = memo(
 
       const newStartPage = startPage - pageLimit;
 
-      if (newStartPage > 0) updateStartPage(newStartPage);
+      if (newStartPage > 0) {
+        updateStartPage(newStartPage);
+        onPrevButtonPress(newStartPage);
+      }
     };
 
     const onNextPress = () => {
@@ -19,7 +30,10 @@ const PaginationTab = memo(
 
       const newStartPage = startPage + pageLimit;
 
-      if (newStartPage <= totalPages) updateStartPage(newStartPage);
+      if (newStartPage <= totalPages) {
+        updateStartPage(newStartPage);
+        onNextButtonPress(newStartPage);
+      }
     };
 
     const renderPageButtons = () => {

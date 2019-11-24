@@ -18,10 +18,11 @@ const requestGifFailure = (error) => ({
 const fetchGifs = (searchObj) => async dispatch => {
     try {
         dispatch(requestGif());
-        const res = await axios.get(`/gifs/search?api_key=${process.env.REACT_APP_GIPHY_KEY}&q=${searchObj.q}&limit=${GIF_COUNT_PER_PAGE}`); // eslint-disable-line
+        const queryString = Object.keys(searchObj).map(key => key + '=' + searchObj[key]).join('&');
+        const res = await axios.get(`/gifs/search?api_key=${process.env.REACT_APP_GIPHY_KEY}&${queryString}&limit=${GIF_COUNT_PER_PAGE}`); // eslint-disable-line
         if (res.data) {
-            console.log(res.data.data[0]);
-            dispatch(requestGifSuccess(res.data.data));
+            // console.log(res.data.pagination);
+            dispatch(requestGifSuccess(res.data));
             return;
         }
         dispatch(requestGifFailure('no-data-found'));

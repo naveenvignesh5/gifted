@@ -11,18 +11,27 @@ import PaginationTab from "../../components/PaginationTab";
 
 // styles
 import "./home.sass";
+import { GIF_COUNT_PER_PAGE, DEFAULT_GIF_SEARCH_QUERY } from "../../constants";
 
 class Home extends Component {
   state = {
     currentPage: 1,
-    query: ""
+    query: DEFAULT_GIF_SEARCH_QUERY
   };
 
   componentDidMount() {
-    this.props.fetchGifs({ q: "cats" });
+    this.props.fetchGifs({ q: DEFAULT_GIF_SEARCH_QUERY });
   }
 
-  updatePage = currentPage => this.setState({ currentPage });
+  updatePage = currentPage => {
+    const offset = ((currentPage - 1) * GIF_COUNT_PER_PAGE) + 1;
+    this.setState({ currentPage }, () => {
+      this.props.fetchGifs({
+        q: this.state.query,
+        offset,
+      });
+    });
+  };
 
   handleOnQueryChange = e => {
     this.setState({
@@ -30,8 +39,8 @@ class Home extends Component {
     });
   };
 
-  handleFetchGifs = query => {
-    this.props.fetchGifs({ q: query });
+  handleFetchGifs = (query, offset = 1) => {
+    this.props.fetchGifs({ q: query, offset });
   };
 
   renderGifs = () => {
@@ -54,7 +63,7 @@ class Home extends Component {
       <div className="gif-status-section">
         <p className="status-text">No Gifs Found.</p>;
       </div>
-    )
+    );
   };
 
   render() {
@@ -67,11 +76,14 @@ class Home extends Component {
           placeholder="Search a gif..."
           defaultValue="cats"
         />
-        {this.renderGifs()}
         <PaginationTab
+          totalPages={this.props.totalPages}
+          onPrevButtonPress={this.updatePage}
+          onNextButtonPress={this.updatePage}
           onPagePress={this.updatePage}
           currentPage={currentPage}
         />
+        {this.renderGifs()}
       </div>
     );
   }
@@ -80,7 +92,8 @@ class Home extends Component {
 const mapStateToProps = state => ({
   gifs: state.gif.gifs,
   fetchingGifs: state.gif.isFetching,
-  fetchingGifsError: state.gif.isError ? state.gif.error : null
+  fetchingGifsError: state.gif.isError ? state.gif.error : null,
+  totalPages: state.gif.totalPages,
 });
 
 const mapDispatchToProps = dispatch =>
