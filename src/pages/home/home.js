@@ -9,9 +9,13 @@ import SearchBar from "../../components/SearchBar";
 import GifList from "../../components/GifList";
 import PaginationTab from "../../components/PaginationTab";
 
+// styles
+import "./home.sass";
+
 class Home extends Component {
   state = {
-    currentPage: 1
+    currentPage: 1,
+    query: ""
   };
 
   componentDidMount() {
@@ -20,17 +24,27 @@ class Home extends Component {
 
   updatePage = currentPage => this.setState({ currentPage });
 
+  handleOnQueryChange = e => {
+    this.setState({
+      query: e.target.value
+    });
+  };
+
+  handleFetchGifs = query => {
+    this.props.fetchGifs({ q: query });
+  };
+
   renderGifs = () => {
     const { gifs, fetchingGifs, fetchingGifsError } = this.props;
 
-    if (gifs && gifs.length > 0) {
-      return <GifList gifs={gifs} />;
-    }
+    if (gifs && gifs.length > 0) return <GifList gifs={gifs} />;
 
     return (
-      <div>
-        {fetchingGifs && <p>Fetching Gifs...</p>}
-        {fetchingGifsError && <p>Something went wrong.</p>}
+      <div className="gif-status-section">
+        {fetchingGifs && <p className="status-text">Loading...</p>}
+        {fetchingGifsError && (
+          <p className="status-text">Unable to load gifs.</p>
+        )}
       </div>
     );
   };
@@ -39,9 +53,17 @@ class Home extends Component {
     const { currentPage } = this.state;
     return (
       <div className="container">
-        <SearchBar placeholder="Search a gif..." />
+        <SearchBar
+          onSearchPress={() => this.handleFetchGifs(this.state.query)}
+          onChange={this.handleOnQueryChange}
+          placeholder="Search a gif..."
+          defaultValue="cats"
+        />
         {this.renderGifs()}
-        <PaginationTab onPagePress={this.updatePage} currentPage={currentPage} />
+        <PaginationTab
+          onPagePress={this.updatePage}
+          currentPage={currentPage}
+        />
       </div>
     );
   }

@@ -12,3 +12,33 @@ $desktop-width: 1024px
 =desktop
   @media screen and (min-width: $desktop-width)
     @content
+
++mobile
+  .is-hidden-mobile
+    display: none !important
+
+  .is-hidden-tablet
+    display: block !important
+
+  .is-hidden-desktop
+    display: block !important
+
++tablet
+  .is-hidden-mobile
+    display: block !important
+
+  .is-hidden-tablet
+    display: none !important
+
+  .is-hidden-desktop
+    display: none !important
+
++desktop
+  .is-hidden-mobile
+    display: block !important
+
+  .is-hidden-tablet
+    display: block !important
+
+  .is-hidden-desktop
+    display: none !important

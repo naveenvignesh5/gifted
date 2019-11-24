@@ -6,10 +6,11 @@ class SearchBar extends PureComponent {
   state = {};
   
   render() {
-    const { ...inputProps } = this.props;
+    const { onSearchPress, ...inputProps } = this.props;
     return (
       <div className="search-bar-wrapper">
         <input className="search-bar-input" {...inputProps} />
+        <button className="search-button" onClick={onSearchPress}>Search</button>
       </div>
     );
   }

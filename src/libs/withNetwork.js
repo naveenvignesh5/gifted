@@ -40,14 +40,14 @@ export default ComposedComponent => {
       const { isDisconnected } = this.state;
 
       return (
-        <div>
+        <>
           {isDisconnected && (
             <div className="internet-error">
               <p>Interent connection lost</p>
             </div>
           )}
           <ComposedComponent {...this.props} />
-        </div>
+        </>
       );
     }
   }

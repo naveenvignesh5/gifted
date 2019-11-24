@@ -6,20 +6,64 @@
     flex-direction: column
     align-items: center
     padding: 2rem
+    +mobile
+        padding: 0rem
     
 .gif-wrapper
     display: grid
-    grid-template-columns: repeat(auto-fit, 180px)
+    grid-template-columns: repeat(auto-fit, 11.25rem)
     grid-gap: 3rem 3.5rem
     width: 100%
     +mobile
         grid-template-columns: 1fr 1fr
+        grid-gap: 0rem 0rem
+
+.gif-image-wrapper
+    width: 11.25rem
+    height: 11.25rem
+    position: relative
+
+    .gif-image-overlay
+        visibility: hidden
+        position: absolute
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: center
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        height: 100%
+        width: 100%
+        z-index: 10
+        background-color: transparentize(black, 0.5)
+
+        .download-button
+            padding: 0.625rem
+            background-color: orange
+            border: 0.0625rem solid orange
+            border-radius: 0.3125rem
+            color: #333
+            width: fit-content
+            font-size: 1rem
+
+    &:hover
+        .gif-image-overlay
+            visibility: visible
 
 .gif-loading
-    width: 170px
-    height: 170px
+    width: 100%
+    height: 100%
     display: flex
     flex-direction: column
     align-items: center
     justify-content: center
     background: wheat
+
+.gif-image
+    width: 100%
+    height: 100%
+    // +mobile
+    //     width: auto
+    //     height: auto

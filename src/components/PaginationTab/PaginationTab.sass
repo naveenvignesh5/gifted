@@ -1,3 +1,5 @@
+@import './../../styles/helper'
+    
 .paginatin-tab
     display: flex
     flex-direction: column
@@ -5,8 +7,8 @@
 
 .page-buttons-wrapper
     display: inline-flex
-    justify-content: space-between
-    padding: 1rem
+    justify-content: center
+    padding: 2rem 1rem
     width: 60%
 
 .page-button
@@ -18,11 +20,12 @@
     color: #333
     font-weight: bold
     border-radius: 10%
+    margin: auto 1rem
 
     &:hover
         background: #666
         color: #fafafa
-        
+
     &.is-active
         background: #333333
         color: #ffffff
