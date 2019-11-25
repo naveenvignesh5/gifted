@@ -39,8 +39,17 @@ class Home extends Component {
     });
   };
 
-  handleFetchGifs = (query, offset = 1) => {
-    this.props.fetchGifs({ q: query, offset });
+  handleFetchGifs = (offset = 1) => {
+    const { query = '' } = this.state;
+    if (query && offset) {
+      this.props.fetchGifs({ q: query, offset });
+    }
+  };
+
+  handleOnKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      this.handleFetchGifs();
+    }
   };
 
   renderGifs = () => {
@@ -71,8 +80,9 @@ class Home extends Component {
     return (
       <div className="container">
         <SearchBar
-          onSearchPress={() => this.handleFetchGifs(this.state.query)}
+          onSearchPress={() => this.handleFetchGifs()}
           onChange={this.handleOnQueryChange}
+          onKeyPress={this.handleOnKeyPress}
           placeholder="Search a gif..."
           defaultValue="cats"
         />
