@@ -8,7 +8,7 @@ const GifList = memo(({ gifs = [] }) => {
     <div className="gif-list">
       <div className="gif-wrapper">
         {gifs.map((gif, index) => (
-          <GifView key={index.toString()} src={gif.images.downsized.url} />
+          <GifView key={index.toString()} staticSrc={gif.images.downsized_still.url} src={gif.images.downsized.url} />
         ))}
       </div>
     </div>

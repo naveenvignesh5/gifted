@@ -53,8 +53,11 @@
             &:hover
                 background-color: darken(orange, 10)
     &:hover
-        .gif-image-overlay
-            visibility: visible
+        .gif-image
+            &.dynamic
+                display: block
+            &.static
+                display: none
 
 .gif-loading
     width: 100%
@@ -68,6 +71,10 @@
 .gif-image
     width: 100%
     height: 100%
+    &.static
+        display: block
+    &.dynamic
+        display: none
     // +mobile
     //     width: auto
     //     height: auto

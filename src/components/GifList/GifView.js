@@ -2,20 +2,31 @@ import React, { memo, useState } from "react";
 
 import "./Gif.sass";
 
-const GifView = memo(({ src }) => {
+const GifView = memo(({ src, staticSrc }) => {
   const [imageLoaded, updateImageLoaded] = useState(false);
+  const [dynamicImageLoaded, updateDynamicImageLoaded] = useState(false);
 
   return (
     <div className="gif-image-wrapper">
-      <div className="gif-loading" style={{ display: imageLoaded ? 'none' : 'flex' }}>Loading GIF...</div>
-      {imageLoaded && <div className="gif-image-overlay">
-        <a className="download-button" href={src}>View</a>
-      </div>}
+      {(!imageLoaded || !dynamicImageLoaded) && (
+        <div
+          className="gif-loading"
+        >
+          Loading GIF...
+        </div>
+      )}
       <img
-        className="gif-image"
-        style={{ display: imageLoaded ? 'block' : 'none' }}
+        className="gif-image static"
         onLoad={() => {
           updateImageLoaded(true);
+        }}
+        src={staticSrc}
+        alt="animated"
+      />
+      <img
+        className="gif-image dynamic"
+        onLoad={() => {
+          updateDynamicImageLoaded(true);
         }}
         src={src}
         alt="animated"
