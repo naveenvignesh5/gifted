@@ -6,24 +6,19 @@ exports[`GifView snapshot renders 1`] = `
 >
   <div
     className="gif-loading"
-    style={
-      Object {
-        "display": "flex",
-      }
-    }
   >
     Loading GIF...
   </div>
   <img
     alt="animated"
-    className="gif-image"
+    className="gif-image static"
+    onLoad={[Function]}
+  />
+  <img
+    alt="animated"
+    className="gif-image dynamic"
     onLoad={[Function]}
     src="https://media.giphy.com/media/J4CLEVEHB7L1n8uBbW/source.gif"
-    style={
-      Object {
-        "display": "none",
-      }
-    }
   />
 </div>
 `;

@@ -17,7 +17,7 @@ const Navbar = memo(({ brandName, onThemeToggle }) => {
         <ToggleSwitch
           onChange={e => {
             updateDarkThemed(e.target.checked);
-            onThemeToggle(e.target.checked);
+            if (onThemeToggle) onThemeToggle(e.target.checked);
           }}
         />
       </div>

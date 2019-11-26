@@ -18,7 +18,7 @@ exports[`Home snapshot renders with given state in redux store 1`] = `
       <div
         className="label"
       >
-        Dark Theme
+        Light Theme
       </div>
       <label
         className="switch"
@@ -51,63 +51,59 @@ exports[`Home snapshot renders with given state in redux store 1`] = `
     </button>
   </div>
   <div
-    className="is-hidden-mobile"
+    className="paginatin-tab"
   >
     <div
-      className="paginatin-tab"
+      className="page-buttons-wrapper"
     >
-      <div
-        className="page-buttons-wrapper"
+      <button
+        className="page-button"
+        onClick={[Function]}
       >
-        <button
-          className="page-button"
-          onClick={[Function]}
-        >
-          Prev
-        </button>
-        <button
-          className="page-button is-active"
-          onClick={[Function]}
-        >
-          1
-        </button>
-        <button
-          className="page-button "
-          onClick={[Function]}
-        >
-          2
-        </button>
-        <button
-          className="page-button "
-          onClick={[Function]}
-        >
-          3
-        </button>
-        <button
-          className="page-button "
-          onClick={[Function]}
-        >
-          4
-        </button>
-        <button
-          className="page-button "
-          onClick={[Function]}
-        >
-          5
-        </button>
-        <button
-          className="page-button "
-          onClick={[Function]}
-        >
-          6
-        </button>
-        <button
-          className="page-button"
-          onClick={[Function]}
-        >
-          Next
-        </button>
-      </div>
+        Prev
+      </button>
+      <button
+        className="page-button is-active"
+        onClick={[Function]}
+      >
+        1
+      </button>
+      <button
+        className="page-button "
+        onClick={[Function]}
+      >
+        2
+      </button>
+      <button
+        className="page-button "
+        onClick={[Function]}
+      >
+        3
+      </button>
+      <button
+        className="page-button "
+        onClick={[Function]}
+      >
+        4
+      </button>
+      <button
+        className="page-button "
+        onClick={[Function]}
+      >
+        5
+      </button>
+      <button
+        className="page-button "
+        onClick={[Function]}
+      >
+        6
+      </button>
+      <button
+        className="page-button"
+        onClick={[Function]}
+      >
+        Next
+      </button>
     </div>
   </div>
   <div

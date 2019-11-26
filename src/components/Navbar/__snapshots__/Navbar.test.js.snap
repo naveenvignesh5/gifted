@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navbar snapshot renders 1`] = `
+<nav
+  className="navbar"
+>
+  <p
+    className="navbar-brand-name"
+  >
+    GIFted
+  </p>
+  <div
+    className="navbar-toggle"
+  >
+    <div
+      className="label"
+    >
+      Light Theme
+    </div>
+    <label
+      className="switch"
+    >
+      <input
+        onChange={[Function]}
+        type="checkbox"
+      />
+      <span
+        className="slider round"
+      />
+    </label>
+  </div>
+</nav>
+`;
