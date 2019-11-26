@@ -40,7 +40,30 @@ Testing is based on **jest** framework.
 $ yarn test
 ```
 
+### CI / CD
+
+#### Stages:
+
+1. Test
+2.  Build and Deploy
+
+**Test**
+
+```shell
+$ yarn install
+$ yarn test
+```
+
+**Build and Deploy**
+
+```shell
+$ yarn install
+$ yarn build
+$ mv build public
+```
+
 ### Tools Used
 
 * VS Code
-* GITLAB CI / CO
+* GITLAB CI / CD
+* Jest
