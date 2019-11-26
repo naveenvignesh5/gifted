@@ -1,9 +1,12 @@
 @import '../../styles/theme'
+@import '../../styles/helper'
 
 .search-bar-wrapper
     display: flex
     padding: 0.625rem
-    background-color: $primary
+    height: 50px
+    @include themify($themes)
+        background-color: themed('searchBarBackground')
 
 .search-bar-input
     width: 100%
@@ -12,14 +15,16 @@
     padding: 0.625rem
     font-size: 1rem
     outline: none
+    transform: unset
 
 .search-button
     border: 0.0625rem solid white
     cursor: pointer
-    background: orange
     padding: 0rem 1rem
     font-size: 1rem
     border-radius: 0rem 0.625rem 0.625rem 0rem
+    z-index: 10
     outline: none
-    // &:focus
-    //     outline: unset
+    @include themify($themes)
+        background-color: themed('searchBarBackground')
+    

@@ -1,0 +1,28 @@
+@import '../../styles/theme'
+@import '../../styles/helper'
+
+.navbar
+    display: flex
+    justify-content: space-between
+    padding: 0.625rem 2rem
+
+    @include themify($themes)
+        background: themed('navbarBackground')
+
+.navbar-brand-name
+    margin: 0rem
+    font-size: 2em
+    font-weight: bold
+    @include themify($themes)
+        color: themed('navbarBrandColor')
+
+.navbar-toggle
+    display: flex
+    align-items: center
+
+    .label
+        font-size: 1.3rem
+        margin-right: 0.625rem
+
+        @include themify($themes)
+            color: themed('navbarToggleLabel')

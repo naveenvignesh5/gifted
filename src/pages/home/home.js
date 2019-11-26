@@ -12,11 +12,13 @@ import PaginationTab from "../../components/PaginationTab";
 // styles
 import "./home.sass";
 import { GIF_COUNT_PER_PAGE, DEFAULT_GIF_SEARCH_QUERY } from "../../constants";
+import Navbar from "../../components/Navbar/Navbar";
 
 class Home extends Component {
   state = {
     currentPage: 1,
-    query: DEFAULT_GIF_SEARCH_QUERY
+    query: DEFAULT_GIF_SEARCH_QUERY,
+    darkThemeEnabled: false,
   };
 
   componentDidMount() {
@@ -52,6 +54,10 @@ class Home extends Component {
     }
   };
 
+  handleThemeToggle = (darkThemeEnabled) => {
+    this.setState({ darkThemeEnabled })
+  };
+
   renderGifs = () => {
     const { gifs, fetchingGifs, fetchingGifsError } = this.props;
 
@@ -76,9 +82,10 @@ class Home extends Component {
   };
 
   render() {
-    const { currentPage } = this.state;
+    const { currentPage, darkThemeEnabled } = this.state;
     return (
-      <div className="container">
+      <div className={`container theme-${darkThemeEnabled ? 'dark' : 'light'}`}>
+        <Navbar brandName="GIFted" onThemeToggle={this.handleThemeToggle} />
         <SearchBar
           onSearchPress={() => this.handleFetchGifs()}
           onChange={this.handleOnQueryChange}
