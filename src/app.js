@@ -7,14 +7,9 @@ import withNetwork from './libs/withNetwork';
 
 // home page
 import Home from "./pages/home";
-import axios from "axios";
 
 // styles
 import './styles/app.sass';
-
-// global.axios = axios.create({
-//     baseURL: '//api.giphy.com/v1',
-// });
 
 const App = () => {
   return (

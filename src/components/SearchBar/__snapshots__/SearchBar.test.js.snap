@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`GifView snapshot renders 1`] = `
+exports[`SearchBar snapshot renders 1`] = `
 <div
   className="search-bar-wrapper"
 >
