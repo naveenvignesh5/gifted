@@ -1,0 +1,22 @@
+image: "node:latest"
+
+stages:
+  - test
+  - build
+
+test:
+  stage: test
+  script:
+    - yarn install
+    - yarn test
+
+build:
+  stage: build
+  script:
+    - yarn install
+    - yarn build
+
+deploy:
+  stage: build
+  script:
+    - mv build/* public/

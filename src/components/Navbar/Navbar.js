@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 
 // component
 import ToggleSwitch from "../ToggleSwitch";
@@ -7,13 +7,19 @@ import ToggleSwitch from "../ToggleSwitch";
 import "./Navbar.sass";
 
 const Navbar = memo(({ brandName, onThemeToggle }) => {
-  
+  const [darkThemed, updateDarkThemed] = useState(false);
+
   return (
     <nav className="navbar">
       <p className="navbar-brand-name">{brandName}</p>
       <div className="navbar-toggle">
-        <div className="label">Dark Theme</div>
-        <ToggleSwitch onChange={e => onThemeToggle(e.target.checked)} />
+        <div className="label">{darkThemed ? "Dark Theme" : "Light Theme"}</div>
+        <ToggleSwitch
+          onChange={e => {
+            updateDarkThemed(e.target.checked);
+            onThemeToggle(e.target.checked);
+          }}
+        />
       </div>
     </nav>
   );

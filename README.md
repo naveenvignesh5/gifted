@@ -12,6 +12,16 @@ A simple react based web application to implement a search engine for gifs and p
 
 4. PaginationTab - Pagniation component ui which has list of buttons to navigate.
    
+5. Toggle Switch - Basic Standalone toggle switch component.
+   
+The application uses aggregation of simple components composed together in a single page. The search bar is a basic wrapper with an input which is used to get user input.
+
+The GifList is a responsive grid wrapper and comprises the GifView which is combination static image and gif image to be toggled on hover.
+
+PaginationTab is a list of buttons to implement pagination.
+
+Toggleswitch is basic check input which has UI based purely on CSS.
+
 ### Development Setup
 
 ```shell
@@ -24,6 +34,13 @@ $ PORT=5000 yarn start # you can set any port you want
 
 ### Testing
 
+Testing is based on **jest** framework.
+
 ```shell
 $ yarn test
 ```
+
+### Tools Used
+
+* VS Code
+* GITLAB CI / CO
