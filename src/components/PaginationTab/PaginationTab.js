@@ -3,11 +3,13 @@ import React, { memo, useState } from "react";
 import "./PaginationTab.sass";
 import { DEFAULT_PAGE_COUNT_PER_GROUP } from "../../constants";
 
+const isMobile = window.innerWidth < 798 ? true : false;
+
 const PaginationTab = memo(
   ({
     totalPages,
     currentPage,
-    pageLimit = DEFAULT_PAGE_COUNT_PER_GROUP,
+    pageLimit = isMobile ? 3 : DEFAULT_PAGE_COUNT_PER_GROUP,
     onPagePress,
     onPrevButtonPress,
     onNextButtonPress
@@ -57,19 +59,19 @@ const PaginationTab = memo(
     };
 
     return (
-      <div className="is-hidden-mobile">
-        <div className="paginatin-tab">
-          <div className="page-buttons-wrapper">
-            <button className="page-button" onClick={onPrevPress}>
-              Prev
-            </button>
-            {renderPageButtons()}
-            <button className="page-button" onClick={onNextPress}>
-              Next
-            </button>
-          </div>
+      <div className="paginatin-tab">
+        <div className="page-buttons-wrapper">
+          <button className="page-button" onClick={onPrevPress}>
+            {isMobile ? '<' : 'Prev'}
+          </button>
+          {renderPageButtons()}
+          <button className="page-button" onClick={onNextPress}>
+          {isMobile ? '>' : 'Next'}
+          </button>
         </div>
       </div>
+      // <div className="is-hidden-mobile">
+      // </div>
     );
   }
 );
