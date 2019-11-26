@@ -2,8 +2,37 @@
 
 exports[`Home snapshot renders with given state in redux store 1`] = `
 <div
-  className="container"
+  className="container theme-light"
 >
+  <nav
+    className="navbar"
+  >
+    <p
+      className="navbar-brand-name"
+    >
+      GIFted
+    </p>
+    <div
+      className="navbar-toggle"
+    >
+      <div
+        className="label"
+      >
+        Dark Theme
+      </div>
+      <label
+        className="switch"
+      >
+        <input
+          onChange={[Function]}
+          type="checkbox"
+        />
+        <span
+          className="slider round"
+        />
+      </label>
+    </div>
+  </nav>
   <div
     className="search-bar-wrapper"
   >
@@ -11,6 +40,7 @@ exports[`Home snapshot renders with given state in redux store 1`] = `
       className="search-bar-input"
       defaultValue="cats"
       onChange={[Function]}
+      onKeyPress={[Function]}
       placeholder="Search a gif..."
     />
     <button

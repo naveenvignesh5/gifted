@@ -1,10 +1,18 @@
+import moxios from 'moxios';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+
 import gifReducer from "./reducers/gif";
+import { fetchGifs } from "./actions/action-gif";
 
 import testData from "./data";
 import { ACTION_TYPES } from "./actionTypes";
 import { GIF_COUNT_PER_PAGE } from "../constants";
 
 const response_data = testData;
+
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 
 describe("Redux Reducer Test", () => {
   // git reducer test
@@ -74,6 +82,38 @@ describe("Redux Reducer Test", () => {
         gifs: [],
         totalPages: 0,
         error: "some error"
+      });
+    });
+  });
+
+  describe("action-gif", () => {
+    beforeEach(function () {
+      moxios.install();
+    });
+  
+    afterEach(function () {
+      moxios.uninstall();
+    });
+
+    it("creates REQUEST_FETCH_GIFS_SUCCESS after fetching success", () => {
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
+          response: testData,
+        });
+      });
+
+      const expectedActions = [
+        { type: ACTION_TYPES.REQUEST_FETCH_GIFS },
+        { type: ACTION_TYPES.REQUEST_FETCH_GIFS_SUCCESS, payload: testData },
+      ];
+
+      const store = mockStore({ gif: {} });
+
+      return store.dispatch(fetchGifs({ q: 'cats', offset: 1 })).then(() => {
+        console.log(store.getActions());
+        expect(store.getActions()).toEqual(expectedActions);
       });
     });
   });
