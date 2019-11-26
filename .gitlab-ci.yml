@@ -12,7 +12,7 @@ test:
   only:
     - master
 
-build and deploy:
+pages:
   stage: deploy
   script:
     - yarn install
