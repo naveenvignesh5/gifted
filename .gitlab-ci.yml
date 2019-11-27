@@ -1,4 +1,11 @@
-image: "node:latest"
+image: node:alpine
+
+variables:
+  PUBLIC_URL: /gifted
+
+cache:
+  paths:
+    - node_modules
 
 stages:
   - test
@@ -16,10 +23,10 @@ pages:
   stage: deploy
   script:
     - yarn install
-    - yarn build
-    - mkdir .public
-    - cp -r build/* .public
-    - mv .public public
+    - yarn build --prod
+    - cp public/index.html public/404.html
+    - mv public _public
+    - mv build public
   artifacts:
     paths:
     - public
