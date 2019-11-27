@@ -27,6 +27,8 @@ Toggleswitch is basic check input which has UI based purely on CSS.
 ```shell
 $ git clone git@github.com:naveenvignesh5/gifted.git
 
+$ cp .env.template .env # Update GIPHY API key in .env file
+
 $ yarn install
 
 $ PORT=5000 yarn start # you can set any port you want
