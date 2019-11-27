@@ -23,6 +23,7 @@ pages:
   stage: deploy
   script:
     - yarn install
+    - echo "REACT_APP_GIPHY_KEY=$REACT_APP_GIPHY_KEY" >> .env
     - yarn build --prod
     - cp public/index.html public/404.html
     - mv public _public
