@@ -1,13 +1,16 @@
 import React, { memo, useState } from "react";
+import { useSelector } from 'react-redux';
 
 import "./Gif.sass";
 
 const GifView = memo(({ src, staticSrc }) => {
   const [imageLoaded, updateImageLoaded] = useState(false);
   const [dynamicImageLoaded, updateDynamicImageLoaded] = useState(false);
+  
+  const isPlaying = useSelector(state => state.gif.isPlaying);
 
   return (
-    <div className="gif-image-wrapper">
+    <div className={`gif-image-wrapper ${isPlaying ? 'is-active' : ''}`}>
       {(!imageLoaded || !dynamicImageLoaded) && (
         <div
           className="gif-loading"

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import { fetchGifs } from "../../redux/actions/action-gif";
+import { fetchGifs, togglePlay } from "../../redux/actions/action-gif";
 
 // components
 import SearchBar from "../../components/SearchBar";
@@ -22,7 +22,6 @@ class Home extends Component {
     currentPage: 1,
     query: DEFAULT_GIF_SEARCH_QUERY,
     darkThemeEnabled: false,
-    isPlaying: false // todo: will be removed if not required
   };
 
   componentDidMount() {
@@ -63,8 +62,7 @@ class Home extends Component {
   };
 
   handlePlayToggle = isPlaying => {
-    alert("working");
-    this.setState({ isPlaying });
+    this.props.togglePlay(isPlaying);
   };
 
   renderGifs = () => {
@@ -91,11 +89,11 @@ class Home extends Component {
   };
 
   render() {
-    const { currentPage, darkThemeEnabled, isPlaying } = this.state;
+    const { currentPage, darkThemeEnabled } = this.state;
     return (
       <div className={`container theme-${darkThemeEnabled ? "dark" : "light"}`}>
         <Navbar brandName="GIFted">
-          <div className="label">{isPlaying ? "Pause" : "Play"}</div>
+          <div className="label">{this.props.gifPlaying ? "Pause" : "Play"}</div>
           <ToggleSwitch
             onChange={e => this.handlePlayToggle(e.target.checked)}
           />
@@ -131,10 +129,11 @@ const mapStateToProps = state => ({
   gifs: state.gif.gifs,
   fetchingGifs: state.gif.isFetching,
   fetchingGifsError: state.gif.isError ? state.gif.error : null,
-  totalPages: state.gif.totalPages
+  totalPages: state.gif.totalPages,
+  gifPlaying: state.gif.isPlaying,
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchGifs }, dispatch);
+  bindActionCreators({ fetchGifs, togglePlay }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
