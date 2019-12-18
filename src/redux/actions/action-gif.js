@@ -30,14 +30,12 @@ const fetchGifs = searchObj => async dispatch => {
     const res = await axios.get(
       `${API_ENDPOINT}/gifs/search?api_key=${process.env.REACT_APP_GIPHY_KEY}&${queryString}&limit=${GIF_COUNT_PER_PAGE}`
     ); // eslint-disable-line
-    console.log(JSON.stringify(res.data));
     if (res.data) {
       dispatch(requestGifSuccess(res.data));
       return;
     }
     dispatch(requestGifFailure("no-data-found"));
   } catch (err) {
-    console.log(err);
     dispatch(requestGifFailure(err));
   }
 };

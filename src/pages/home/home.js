@@ -16,6 +16,7 @@ import "./home.sass";
 // constants
 import { GIF_COUNT_PER_PAGE, DEFAULT_GIF_SEARCH_QUERY } from "../../constants";
 import ToggleSwitch from "../../components/ToggleSwitch";
+import { updateSearchEntry } from "../../libs/search_entry";
 
 class Home extends Component {
   state = {
@@ -46,6 +47,13 @@ class Home extends Component {
 
   handleFetchGifs = (offset = 1) => {
     const { query = "" } = this.state;
+
+    try {
+      updateSearchEntry(query); // updates local storage
+    } catch (err) {
+      console.log(err);
+    }
+    
     if (query && offset) {
       this.props.fetchGifs({ q: query, offset });
     }
