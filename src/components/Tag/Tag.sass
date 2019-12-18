@@ -1,0 +1,18 @@
+@import '../../styles/theme'
+@import '../../styles/helper'
+
+.tag
+    padding: 0.625rem
+    width: fit-content
+    border-radius: 0.625rem
+    font-size: 1.25rem
+    font-weight: bold
+
+    @include themify($themes)
+        background-color: themed('tagBackground')
+        color: themed('tagColor')
+
+    &.is-active
+        @include themify($themes)
+            background-color: themed('tagBackgroundActive') !important
+            color: themed('tagColorActive') !important

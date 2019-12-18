@@ -9,25 +9,37 @@ import SearchBar from "../../components/SearchBar";
 import GifList from "../../components/GifList";
 import PaginationTab from "../../components/PaginationTab";
 import Navbar from "../../components/Navbar/Navbar";
+import { Tag } from "../../components/Tag";
+import ToggleSwitch from "../../components/ToggleSwitch";
 
 // styles
 import "./home.sass";
 
 // constants
 import { GIF_COUNT_PER_PAGE, DEFAULT_GIF_SEARCH_QUERY } from "../../constants";
-import ToggleSwitch from "../../components/ToggleSwitch";
-import { updateSearchEntry } from "../../libs/search_entry";
+import { updateSearchEntry, getSearchEntry } from "../../libs/search_entry";
 
 class Home extends Component {
   state = {
     currentPage: 1,
     query: DEFAULT_GIF_SEARCH_QUERY,
     darkThemeEnabled: false,
+    search_entries: []
   };
 
   componentDidMount() {
     this.props.fetchGifs({ q: DEFAULT_GIF_SEARCH_QUERY });
+
+    this.updateSearchEntry();
   }
+
+  updateSearchEntry = () => {
+    let search_entries = getSearchEntry();
+
+    this.setState({
+      search_entries
+    });
+  };
 
   updatePage = currentPage => {
     const offset = (currentPage - 1) * GIF_COUNT_PER_PAGE + 1;
@@ -45,17 +57,27 @@ class Home extends Component {
     });
   };
 
-  handleFetchGifs = (offset = 1) => {
+  handleFetchGifs = (offset = 1, query_default = "") => {
     const { query = "" } = this.state;
 
-    try {
-      updateSearchEntry(query); // updates local storage
-    } catch (err) {
-      console.log(err);
-    }
-    
-    if (query && offset) {
-      this.props.fetchGifs({ q: query, offset });
+    let final_query = query_default || query;
+
+    updateSearchEntry(final_query); // updates local storage
+
+    let search_entries = getSearchEntry();
+
+    if (final_query && offset) {
+      this.setState(
+        prevState => {
+          return {
+            query: final_query,
+            search_entries,
+          };
+        },
+        () => {
+          this.props.fetchGifs({ q: final_query, offset });
+        }
+      );
     }
   };
 
@@ -96,12 +118,34 @@ class Home extends Component {
     );
   };
 
+  renderSearchEntries = () => {
+    let { search_entries = [] } = this.state;
+
+    if (!search_entries || search_entries.length === 0) {
+      return null;
+    }
+
+    return (
+      <div className="tags-wrapper">
+        {search_entries.map((entry, i) => (
+          <Tag
+            key={`tag_${i}`}
+            onTagPress={t => this.handleFetchGifs(1, t)}
+            text={entry}
+          />
+        ))}
+      </div>
+    );
+  };
+
   render() {
-    const { currentPage, darkThemeEnabled } = this.state;
+    const { currentPage, darkThemeEnabled, query } = this.state;
     return (
       <div className={`container theme-${darkThemeEnabled ? "dark" : "light"}`}>
         <Navbar brandName="GIFted">
-          <div className="label">{this.props.gifPlaying ? "Pause" : "Play"}</div>
+          <div className="label">
+            {this.props.gifPlaying ? "Pause" : "Play"}
+          </div>
           <ToggleSwitch
             onChange={e => this.handlePlayToggle(e.target.checked)}
           />
@@ -114,12 +158,14 @@ class Home extends Component {
           />
         </Navbar>
         <SearchBar
+          ref={r => (this.searchBarDom = r)}
           onSearchPress={() => this.handleFetchGifs()}
           onChange={this.handleOnQueryChange}
+          value={query}
           onKeyPress={this.handleOnKeyPress}
           placeholder="Search a gif..."
-          defaultValue="cats"
         />
+        {this.renderSearchEntries()}
         <PaginationTab
           totalPages={this.props.totalPages}
           onPrevButtonPress={this.updatePage}
@@ -138,7 +184,7 @@ const mapStateToProps = state => ({
   fetchingGifs: state.gif.isFetching,
   fetchingGifsError: state.gif.isError ? state.gif.error : null,
   totalPages: state.gif.totalPages,
-  gifPlaying: state.gif.isPlaying,
+  gifPlaying: state.gif.isPlaying
 });
 
 const mapDispatchToProps = dispatch =>

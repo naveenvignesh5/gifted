@@ -11,7 +11,7 @@ const updateSearchEntry = (newEntry) => {
         return;
     }
 
-    if (entries.length > SEARCH_ENTRY_LIMIT) entries.pop();
+    if (entries.length >= SEARCH_ENTRY_LIMIT) entries.pop();
 
     entries.unshift(newEntry);
 
