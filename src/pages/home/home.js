@@ -8,17 +8,21 @@ import { fetchGifs } from "../../redux/actions/action-gif";
 import SearchBar from "../../components/SearchBar";
 import GifList from "../../components/GifList";
 import PaginationTab from "../../components/PaginationTab";
+import Navbar from "../../components/Navbar/Navbar";
 
 // styles
 import "./home.sass";
+
+// constants
 import { GIF_COUNT_PER_PAGE, DEFAULT_GIF_SEARCH_QUERY } from "../../constants";
-import Navbar from "../../components/Navbar/Navbar";
+import ToggleSwitch from "../../components/ToggleSwitch";
 
 class Home extends Component {
   state = {
     currentPage: 1,
     query: DEFAULT_GIF_SEARCH_QUERY,
     darkThemeEnabled: false,
+    isPlaying: false // todo: will be removed if not required
   };
 
   componentDidMount() {
@@ -26,11 +30,11 @@ class Home extends Component {
   }
 
   updatePage = currentPage => {
-    const offset = ((currentPage - 1) * GIF_COUNT_PER_PAGE) + 1;
+    const offset = (currentPage - 1) * GIF_COUNT_PER_PAGE + 1;
     this.setState({ currentPage }, () => {
       this.props.fetchGifs({
         q: this.state.query,
-        offset,
+        offset
       });
     });
   };
@@ -42,20 +46,25 @@ class Home extends Component {
   };
 
   handleFetchGifs = (offset = 1) => {
-    const { query = '' } = this.state;
+    const { query = "" } = this.state;
     if (query && offset) {
       this.props.fetchGifs({ q: query, offset });
     }
   };
 
-  handleOnKeyPress = (e) => {
-    if (e.key === 'Enter') {
+  handleOnKeyPress = e => {
+    if (e.key === "Enter") {
       this.handleFetchGifs();
     }
   };
 
-  handleThemeToggle = (darkThemeEnabled) => {
-    this.setState({ darkThemeEnabled })
+  handleThemeToggle = darkThemeEnabled => {
+    this.setState({ darkThemeEnabled });
+  };
+
+  handlePlayToggle = isPlaying => {
+    alert("working");
+    this.setState({ isPlaying });
   };
 
   renderGifs = () => {
@@ -82,10 +91,22 @@ class Home extends Component {
   };
 
   render() {
-    const { currentPage, darkThemeEnabled } = this.state;
+    const { currentPage, darkThemeEnabled, isPlaying } = this.state;
     return (
-      <div className={`container theme-${darkThemeEnabled ? 'dark' : 'light'}`}>
-        <Navbar brandName="GIFted" onThemeToggle={this.handleThemeToggle} />
+      <div className={`container theme-${darkThemeEnabled ? "dark" : "light"}`}>
+        <Navbar brandName="GIFted">
+          <div className="label">{isPlaying ? "Pause" : "Play"}</div>
+          <ToggleSwitch
+            onChange={e => this.handlePlayToggle(e.target.checked)}
+          />
+          &nbsp;&nbsp;
+          <div className="label">
+            {darkThemeEnabled ? "Dark Theme" : "Light Theme"}
+          </div>
+          <ToggleSwitch
+            onChange={e => this.handleThemeToggle(e.target.checked)}
+          />
+        </Navbar>
         <SearchBar
           onSearchPress={() => this.handleFetchGifs()}
           onChange={this.handleOnQueryChange}
@@ -110,7 +131,7 @@ const mapStateToProps = state => ({
   gifs: state.gif.gifs,
   fetchingGifs: state.gif.isFetching,
   fetchingGifsError: state.gif.isError ? state.gif.error : null,
-  totalPages: state.gif.totalPages,
+  totalPages: state.gif.totalPages
 });
 
 const mapDispatchToProps = dispatch =>

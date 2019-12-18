@@ -29,6 +29,7 @@ const fetchGifs = (searchObj) => async dispatch => {
         }
         dispatch(requestGifFailure('no-data-found'));
     } catch (err) {
+        console.log(err);
         dispatch(requestGifFailure(err));
     }
 }
